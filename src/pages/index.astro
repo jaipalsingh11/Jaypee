@@ -1,3 +1,6 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -7,10 +10,35 @@
     <title>Astro</title>
   </head>
   <body>
-    <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/blog/">Blog</a>
-    <h1>Astro1</h1>
-		<h1>My Astro New Site</h1>
+<Mainlayout>
+
+<h1 id="dd" >
+  Visual
+</h1>
+<h1 id="dc" >
+
+Designer
+</h1>
+
+</Mainlayout>
+
   </body>
 </html>
+
+<style>
+#dd {
+display: flex;
+  font-family: 'Recoleta';
+  font-size: 300px;
+  margin: 0;
+}
+#dc {
+  display: flex;
+  font-family: 'Recoleta';
+  font-size: 300px;
+  justify-content: end;
+  padding: 0;
+  margin: 0;
+}
+
+</style>
