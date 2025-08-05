@@ -10,15 +10,77 @@ import Mainlayout from "../layouts/Layout.astro";
     <title>Astro</title>
   </head>
   <body>
-<Mainlayout>
+<Mainlayout id="main" >
+  <div id="container" >
+    <p1 id="hey" >Hey I’m Jaypee a</p1>
+    <img id="visual" src="Visual.svg" alt="">
+<img id="designer" src="Designer.svg" alt="">
 
-<h1 id="dd" >
-  Visual
-</h1>
-<h1 id="dc" >
+<img id="cloud1" src="cloud.png" alt="">
+<img id="cloud2" src="cloud.png" alt="">
 
-Designer
-</h1>
+  </div>
+ <div class="menu-container">
+    <div class="menu-item">Print media</div>
+    <div class="menu-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ui Ux &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div class="menu-item">Ad Creatives</div>
+    <div class="menu-item active">Photography</div>
+    <div class="menu-item">Videography</div>
+    <div class="menu-item">Research</div>
+  </div>
+
+    <div class="grid-container">
+
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 1">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 2">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 1">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 2">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+     <div class="grid-item">
+      <img src="project1.png" alt="Project 1">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 2">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 1">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 2">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    <div class="grid-item">
+      <img src="project1.png" alt="Project 3">
+    </div>
+    </div>
+
 
 </Mainlayout>
 
@@ -26,19 +88,113 @@ Designer
 </html>
 
 <style>
-#dd {
-display: flex;
-  font-family: 'Recoleta';
-  font-size: 300px;
-  margin: 0;
-}
-#dc {
+  .grid-container {
+       display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 columns */
+  gap: 20px;
+      max-width: 80%;
+  margin: 0 auto;
+   max-width: 1700px;
+    }
+
+    .grid-item {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 2px solid #a3c7e3;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      background-color: white;
+      height: 250px;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+    }
+
+     .menu-container {
+      display: flex;
+      gap: 20px;
+      padding: 20px 20px;
+      border: 1px solid #a3c7e3;
+      border-radius: 50px;
+      background-color: white;
+      max-width: 70%;
+      margin: 20px auto;
+      font-family: 'Recoleta';
+       max-width: 1700px;
+        display: flex;
+      justify-content:space-evenly
+
+    }
+
+    .menu-item {
+      padding: 5px 20px;
+      border-radius: 15px;
+      background-color: #f0f8ff;
+      color: #3290ca;
+      font-size: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item.active {
+      background-color: #3290ca;
+      color: white;
+    }
+
+    .menu-item:hover {
+      background-color: #cbe8f8;
+    }
+
+  #hey{
+    color: rgb(255, 255, 255);
+    font-size: 80px;
+     font-family: 'Recoleta';
+     margin-top: 100px;
+
+  }
+
+  #sun {
+   margin-bottom: 1%;
+  }
+
+#container {
   display: flex;
-  font-family: 'Recoleta';
-  font-size: 300px;
-  justify-content: end;
-  padding: 0;
-  margin: 0;
+  flex-direction: column;
+  max-width: 80%;
+  margin: 0 auto;
+   max-width: 1700px;
+  position: relative;
+
+
+}
+
+#cloud1 {
+  position: absolute;
+top: 500px;
+left: -100px;
+
+}
+#cloud2 {
+  position: absolute;
+top: 150px;
+right: -430px;
+width: 1600px;
+}
+
+#visual {
+  margin-top: 1px;
+display: flex;
+width: 1000px;
+justify-self: right;
+}
+
+#designer {
+align-self: flex-end;
+    width: 1200px;
 }
 
 </style>
