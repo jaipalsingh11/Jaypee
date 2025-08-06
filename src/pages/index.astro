@@ -1,18 +1,9 @@
 ---
 import Mainlayout from "../layouts/Layout.astro";
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
-    <title>Astro</title>
-  </head>
-  <body>
 <Mainlayout id="main" >
   <div id="container" >
-    <p1 id="hey" >Hey I’m Jaypee a</p1>
+    <p id="hey" >Hey I’m Jaypee a</p>
     <img id="visual" src="Visual.svg" alt="">
 <img id="designer" src="Designer.svg" alt="">
 
@@ -84,15 +75,12 @@ import Mainlayout from "../layouts/Layout.astro";
 
 </Mainlayout>
 
-  </body>
-</html>
 
 <style>
   .grid-container {
        display: grid;
   grid-template-columns: repeat(4, 1fr); /* 3 columns */
   gap: 20px;
-      max-width: 80%;
   margin: 0 auto;
    max-width: 1700px;
     }
@@ -123,7 +111,7 @@ import Mainlayout from "../layouts/Layout.astro";
       background-color: white;
       max-width: 70%;
       margin: 20px auto;
-      font-family: 'Recoleta';
+      font-family: 'Recoleta',Georgia, serif;
        max-width: 1700px;
         display: flex;
       justify-content:space-evenly
@@ -152,7 +140,7 @@ import Mainlayout from "../layouts/Layout.astro";
   #hey{
     color: rgb(255, 255, 255);
     font-size: 80px;
-     font-family: 'Recoleta';
+     font-family: 'Recoleta',Georgia, serif;
      margin-top: 100px;
 
   }
@@ -164,7 +152,6 @@ import Mainlayout from "../layouts/Layout.astro";
 #container {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
   margin: 0 auto;
    max-width: 1700px;
   position: relative;

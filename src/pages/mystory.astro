@@ -1,0 +1,165 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+---
+<Mainlayout id="main" >
+  <div id="container" >
+    <p id="about-me" >About Me</p>
+
+<img id="cloud1" src="cloud.png" alt="">
+<img id="cloud2" src="cloud.png" alt="">
+
+  </div>
+  <div id="bigcontainer" >
+
+
+ <div id="container2" >
+  <img id="journey" src="journey.svg" alt="">
+  <div id="left-column-small">
+ <img src="Profile.png" alt="Jaypal Photo" class="profile-photo">
+
+      <section class="intro">
+        <h2>Introduction</h2>
+        <p>I'm Jaypal, currently pursuing my Master’s in Communication Design and I have 4 years of experience in interface and communication design. I’ve worked with tools like Adobe Illustrator, Photoshop, InDesign, Premiere Pro, After Effects, and Figma. I also have hands-on experience in UI/UX design, Communication design, video editing, and storytelling through visuals.</p>
+      </section>
+
+      <section class="achievements">
+        <h2>Achievements</h2>
+        <ul>
+          <li>I'm Jaypal, currently pursuing my Master’s in Communication Design</li>
+          <li>I have 4 years of experience in interface and communication design.</li>
+        </ul>
+      </section>
+
+      <section class="softwares">
+        <h2>Softwares I Know</h2>
+        <div class="icons">
+          <img src="ai.png" alt="Adobe Illustrator">
+          <img src="ps.png" alt="Photoshop">
+          <img src="ae.png" alt="After Effects">
+        </div>
+     <div class="left-column">
+
+</div>
+
+
+      </section>
+    </div>
+  </div>
+  </div>
+
+</body>
+
+  </div>
+
+</Mainlayout>
+
+<style>
+
+#about-me{
+  color: aliceblue;
+  font-size: 300px;
+  font-family: 'Recoleta',Georgia, serif;
+margin: 50px auto;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  margin: 0 auto;
+   max-width: 1700px;
+  position: relative;
+  height: 1000px;
+z-index: 1;
+}
+
+#cloud1 {
+  position: absolute;
+top: 250px;
+left: -360px;
+
+}
+#cloud2 {
+  position: absolute;
+top: -120px;
+right: -930px;
+width: 1600px;
+}
+
+#visual {
+  margin-top: 1px;
+display: flex;
+width: 1000px;
+justify-self: right;
+}
+
+#designer {
+align-self: flex-end;
+    width: 1200px;
+}
+#bigcontainer {
+background-color: rgb(255, 255, 255);
+height: 5000px;
+margin-top:-500px;
+border-top: 1px #a3c7e3 solid;
+z-index: 2;
+}
+
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+}
+
+#container2 {
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+ margin: 0 auto;
+   max-width: 1700px;
+   z-index: 500;
+   position: relative;
+
+}
+#journey{
+  position: absolute;
+  left: 100px;
+}
+
+.left-column {
+  height: 1000px;
+  background-color: aqua;
+  min-width: 700px;
+}
+#left-column-small{
+   width: 40%;
+  padding: 20px;
+  margin-top: -150px;
+  height: 1000px;
+  background-color: rgb(59, 131, 131);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+max-width: 500px;
+}
+
+.profile-photo {
+  width: 250px;
+  border-radius: 100%;
+  display: block;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #187bcd;
+  margin-top: 30px;
+}
+
+.icons img {
+  width: 50px;
+  margin-right: 10px;
+}
+
+</style>
