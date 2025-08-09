@@ -11,71 +11,150 @@ import Mainlayout from "../layouts/Layout.astro";
     <img id="cloud1" src="cloud.png" alt="" />
     <img id="cloud2" src="cloud.png" alt="" />
   </div>
-  <div class="menu-container">
-    <div class="menu-item">Print media</div>
-    <div class="menu-item">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ui Ux
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="bigcontainer">
+    <div class="menu-container">
+      <div class="menu-item" data-filter="print">Print media</div>
+      <div class="menu-item" data-filter="uiux">Ui Ux</div>
+      <div class="menu-item" data-filter="ads">Ad Creatives</div>
+      <div class="menu-item" data-filter="photo">Photography</div>
+      <div class="menu-item" data-filter="video">Videography</div>
+      <div class="menu-item" data-filter="research">Research</div>
+      <div class="menu-item" data-filter="all">Show All</div>
     </div>
-    <div class="menu-item">Ad Creatives</div>
-    <div class="menu-item active">Photography</div>
-    <div class="menu-item">Videography</div>
-    <div class="menu-item">Research</div>
+    <div class="grid-container">
+      <div class="grid-item" data-category="print">
+        <img src="project1.png" alt="Project 1" />
+        <div class="overlay">Project 1</div>
+      </div>
+
+      <div class="grid-item" data-category="uiux">
+        <img src="project2.png" alt="Project 2" />
+        <div class="overlay">
+          ZellyGoms- Visual Identity, Packaging, Ad creatives
+        </div>
+      </div>
+
+      <div class="grid-item" data-category="photo">
+        <img src="project3.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 1" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 2" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 1" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 2" />
+      </div>
+      <div class="grid-item">
+        <img src="project2.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project2.png" alt="Project 1" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 2" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 3" />
+      </div>
+      <div class="grid-item">
+        <img src="project1.png" alt="Project 3" />
+      </div>
+    </div>
   </div>
 
-  <div class="grid-container">
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 1" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 2" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 1" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 2" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 1" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 2" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 1" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 2" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-    <div class="grid-item">
-      <img src="project1.png" alt="Project 3" />
-    </div>
-  </div>
+  <script is:inline>
+    window.addEventListener("scroll", function () {
+      const container = document.getElementById("container");
+      const scrollY = window.scrollY;
+      const fadePoint = 600;
+
+      let opacity = 1 - scrollY / fadePoint;
+      if (opacity < 0) opacity = 0;
+      if (opacity > 1) opacity = 1;
+
+      container.style.opacity = opacity;
+    });
+    const buttons = document.querySelectorAll(".menu-item");
+    const projects = document.querySelectorAll(".grid-item");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Remove active class from all buttons
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const filter = button.getAttribute("data-filter");
+        projects.forEach((project) => {
+          if (
+            filter === "all" ||
+            project.getAttribute("data-category") === filter
+          ) {
+            project.style.display = "block";
+          } else {
+            project.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
 </Mainlayout>
 
 <style>
+  .grid-item {
+    position: relative; /* So overlay can position itself over the image */
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid #a3c7e3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    height: 250px;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(0, 0, 0, 0.8)
+    );
+    color: white;
+    font-size: 20px;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    font-family: cloud;
+    font-weight: 100;
+    text-shadow: black 1px 1px;
+  }
+
+  .grid-item:hover .overlay {
+    opacity: 1;
+  }
+
   .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 3 columns */
@@ -85,6 +164,7 @@ import Mainlayout from "../layouts/Layout.astro";
   }
 
   .grid-item {
+    position: relative;
     overflow: hidden;
     border-radius: 20px;
     border: 2px solid #a3c7e3;
@@ -93,12 +173,17 @@ import Mainlayout from "../layouts/Layout.astro";
     height: 250px;
   }
 
+  .grid-item img:hover {
+    transform: scale(1.06);
+  }
+
   .grid-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     border-radius: 20px;
+    transition: transform 0.9s ease;
   }
 
   .menu-container {
@@ -106,14 +191,17 @@ import Mainlayout from "../layouts/Layout.astro";
     gap: 20px;
     padding: 20px 20px;
     border: 1px solid #a3c7e3;
-    border-radius: 50px;
+    border-radius: 20px;
     background-color: white;
     max-width: 70%;
     margin: 20px auto;
     font-family: "Recoleta", Georgia, serif;
-    max-width: 1700px;
+    max-width: 1690px;
     display: flex;
     justify-content: space-evenly;
+    position: sticky;
+    top: 140px;
+    z-index: 10;
   }
 
   .menu-item {
@@ -147,12 +235,13 @@ import Mainlayout from "../layouts/Layout.astro";
   }
 
   #container {
-    
+    transition: opacity 0.5s ease;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     max-width: 1700px;
     position: relative;
+    transition: opacity 0.5s ease;
   }
 
   #cloud1 {
@@ -177,5 +266,8 @@ import Mainlayout from "../layouts/Layout.astro";
   #designer {
     align-self: flex-end;
     width: 1200px;
+  }
+  .bigcontainer {
+    height: fit-content;
   }
 </style>
