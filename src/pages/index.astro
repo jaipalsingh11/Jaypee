@@ -22,36 +22,46 @@ import Mainlayout from "../layouts/Layout.astro";
       <div class="menu-item" data-filter="all">Show All</div>
     </div>
     <div class="grid-container">
-     <a href="/timo">
-  <div class="grid-item" data-category="print">
-    <img src="timo.png" alt="Project 1" />
-    <div class="overlay">Board game design "TIMO: Time Is Money Challenge"</div>
-  </div>
-</a>
+      <a href="/timo">
+        <div class="grid-item" data-category="print">
+          <img src="timo.png" alt="Project 1" />
+          <div class="overlay">
+            Board game design "TIMO: Time Is Money Challenge"
+          </div>
+        </div>
+      </a>
 
-<a href="/zellygoms">
-  <div class="grid-item" data-category="uiux">
-    <img src="zellygoms.png" alt="Project 2" />
-    <div class="overlay">
-      ZellyGoms - Visual Identity, Packaging, Ad creatives
-    </div>
-  </div>
-</a>
+      <a href="/zellygoms">
+        <div class="grid-item" data-category="uiux">
+          <img src="zellygoms.png" alt="Project 2" />
+          <div class="overlay">
+            ZellyGoms - Visual Identity, Packaging, Ad creatives
+          </div>
+        </div>
+      </a>
 
-     <a href="/xdefend">
-  <div class="grid-item" data-category="uiux">
-    <img src="xdefend.png" alt="Xdefend" />
-    <div class="overlay">
-      Logo design project for XDefend
-    </div>
-  </div>
-</a>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 3" />
-      </div>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 1" />
-      </div>
+      <a href="/xdefend">
+        <div class="grid-item" data-category="uiux">
+          <img src="xdefend.png" alt="Xdefend" />
+          <div class="overlay">Logo design project for XDefend</div>
+        </div>
+      </a>
+      <a href="/famyo-identity">
+        <div class="grid-item" data-category="uiux">
+          <img src="famyo-identity.png" alt="famyo brand identity" />
+          <div class="overlay">
+            Famyo: Brand Identity and Brand Guideline Booklet
+          </div>
+        </div>
+      </a>
+      <a href="/secmatrix-brochure">
+        <div class="grid-item" data-category="uiux">
+          <img src="secmatrix-brochure.png" alt="Secmatrix Brochure Design" />
+          <div class="overlay">
+            Brochure Design for a cybersecurity course by SECMATRIX
+          </div>
+        </div>
+      </a>
       <div class="grid-item">
         <img src="project1.png" alt="Project 2" />
       </div>
@@ -126,10 +136,9 @@ import Mainlayout from "../layouts/Layout.astro";
 </Mainlayout>
 
 <style>
-
-#hey {
-  margin-bottom: 0;
-}
+  #hey {
+    margin-bottom: 0;
+  }
 
   .grid-item {
     position: relative; /* So overlay can position itself over the image */
@@ -284,5 +293,4 @@ import Mainlayout from "../layouts/Layout.astro";
   .bigcontainer {
     height: fit-content;
   }
-
 </style>

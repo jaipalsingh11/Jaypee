@@ -1,0 +1,150 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+---
+
+<Mainlayout id="main">
+  <div id="container">
+
+    <h1 id="about-project">Brochure Design</h1>
+    <p>
+<b>Context:</b> Brochure design for a cybersecurity course offered by SecMatrix. SecMatrix is a cybersecurity training company based in Washington. worked on in 2022.
+    </p>
+
+
+    <img id="cloud1" src="cloud.png" alt="" />
+    <img id="cloud2" src="cloud.png" alt="" />
+  </div>
+
+  <div id="bigcontainer">
+    <div class="vertical-carousel">
+      {
+        Array.from({ length: 8 }).map((_, i) => (
+          <div className="slide" key={i}>
+            <img src={`/secmatrix-brochure/secmatrix${i + 1}.png`} alt={`Slide ${i + 1}`} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Mainlayout>
+
+<script>
+  let targetScroll = window.scrollY;
+  let currentScroll = window.scrollY;
+  const speed = 0.08; // lower = more delay
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      targetScroll += e.deltaY;
+      targetScroll = Math.max(0, targetScroll); // prevent negative scroll
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+
+  function smoothScroll() {
+    currentScroll += (targetScroll - currentScroll) * speed;
+    window.scrollTo(0, currentScroll);
+    requestAnimationFrame(smoothScroll);
+  }
+
+  smoothScroll();
+</script>
+
+<style>
+  .vertical-carousel {
+    display: flex;
+    flex-direction: column; /* stack rows vertically */
+    gap: 20px;
+    max-width: 1700px;
+    margin: 0 auto;
+  }
+
+.slide {
+  position: relative;
+  display: inline-block;
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 4px solid rgb(0, 0, 0); /* test color */
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.slide img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1700px;
+    margin: 50px auto;
+    position: relative;
+    height: 1000px;
+    z-index: 1;
+  }
+
+  #cloud1 {
+    position: absolute;
+    top: 250px;
+    left: -360px;
+  }
+
+  #cloud2 {
+    position: absolute;
+    top: -120px;
+    right: -930px;
+    width: 1600px;
+  }
+
+  #about-project{
+    color: aliceblue;
+    font-size: 210px;
+    font-family: "Recoleta", Georgia, serif;
+    margin: 50px auto;
+    font-weight: 100;
+    max-width: 100%;
+  }
+
+  #bigcontainer {
+    background-color: white;
+    margin-top: -550px;
+    border-top: 1px #a3c7e3 solid;
+    z-index: 2;
+    padding: 50px 0;
+
+  }
+
+  #bigcontainer img {
+    max-width: 100%;
+  }
+
+#container p {
+  font-family: cloudthin;
+  font-size: 35px;
+  color: #476e8e;
+  margin-top: -75px;
+  padding-left: 30px;
+  padding-right: 30px;
+z-index: 5;
+font-weight: 700;
+}
+#container p b {
+  font-family: cloud;
+  font-weight: 100;
+}
+
+</style>
