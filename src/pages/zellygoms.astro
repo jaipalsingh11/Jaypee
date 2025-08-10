@@ -1,0 +1,137 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+---
+
+<Mainlayout id="main">
+  <div id="container">
+
+    <h1 id="about-project">Brand Identity</h1>
+    <p>
+<b>Context:</b> This is a brand identity project I did in 2022 — a brand identity for an imaginary jelly bear brand named Zellygoms. The project covers branding, packaging, and ad creatives.
+    </p>
+
+
+    <img id="cloud1" src="cloud.png" alt="" />
+    <img id="cloud2" src="cloud.png" alt="" />
+  </div>
+
+  <div id="bigcontainer">
+    <div class="vertical-carousel">
+      {
+        Array.from({ length: 10 }).map((_, i) => (
+          <div className="slide" key={i}>
+            <img src={`/Zellygoms/Zelly${i + 1}.png`} alt={`Slide ${i + 1}`} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Mainlayout>
+
+<script>
+  let targetScroll = window.scrollY;
+  let currentScroll = window.scrollY;
+  const speed = 0.08; // lower = more delay
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      targetScroll += e.deltaY;
+      targetScroll = Math.max(0, targetScroll); // prevent negative scroll
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+
+  function smoothScroll() {
+    currentScroll += (targetScroll - currentScroll) * speed;
+    window.scrollTo(0, currentScroll);
+    requestAnimationFrame(smoothScroll);
+  }
+
+  smoothScroll();
+</script>
+
+<style>
+  .vertical-carousel {
+    display: flex;
+    flex-direction: column; /* stack rows vertically */
+    gap: 20px;
+    max-width: 1700px;
+    margin: 0 auto;
+  }
+
+  .slide {
+    display: inline-block; /* so it wraps around content */
+    border-radius: 12px;
+    overflow: hidden; /* keeps image corners rounded */
+    background: #eee; /* fallback background */
+  }
+
+  .slide img {
+    display: block; /* remove default inline gap */
+    width: 100%; /* or auto if you want natural width */
+    height: auto;
+    border-radius: 12px;
+  }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1700px;
+    margin: 50px auto;
+    position: relative;
+    height: 1000px;
+    z-index: 1;
+  }
+
+  #cloud1 {
+    position: absolute;
+    top: 250px;
+    left: -360px;
+  }
+
+  #cloud2 {
+    position: absolute;
+    top: -120px;
+    right: -930px;
+    width: 1600px;
+  }
+
+  #about-project{
+    color: aliceblue;
+    font-size: 250px;
+    font-family: "Recoleta", Georgia, serif;
+    margin: 50px auto;
+    font-weight: 100;
+  }
+
+  #bigcontainer {
+    background-color: white;
+    margin-top: -500px;
+    border-top: 1px #a3c7e3 solid;
+    z-index: 2;
+    padding: 50px 0;
+
+  }
+
+  #bigcontainer img {
+    max-width: 100%;
+  }
+
+#container p {
+  font-family: cloudthin;
+  font-size: 35px;
+  color: #476e8e;
+  margin-top: -75px;
+  padding-left: 30px;
+  padding-right: 30px;
+z-index: 5;
+font-weight: 700;
+}
+#container p b {
+  font-family: cloud;
+  font-weight: 100;
+}
+
+</style>
