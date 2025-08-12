@@ -11,6 +11,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
 
     <img id="cloud1" src="cloud.png" alt="" />
     <img id="cloud2" src="cloud.png" alt="" />
+    <img id="cloud3" src="cloud3.png" alt=""  />
   </div>
   <div class="bigcontainer">
     <div class="menu-container">
@@ -100,6 +101,8 @@ import ProjectGallery from "../components/ProjectGallery.astro";
   </div>
 
   <script is:inline>
+
+    if (window.innerWidth > 768) {
     window.addEventListener("scroll", function () {
       const container = document.getElementById("container");
       const scrollY = window.scrollY;
@@ -133,10 +136,15 @@ import ProjectGallery from "../components/ProjectGallery.astro";
         });
       });
     });
+  }
   </script>
 </Mainlayout>
 
 <style>
+#cloud3 {
+  display: none;
+}
+
   #hey {
     margin-bottom: 0;
   }
@@ -420,10 +428,147 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     font-weight: 100;
     text-shadow: black 1px 1px;
   }
-* {
-  max-width: 600px;
-}
-
 
   }
+
+  @media (max-width: 600px) {
+    #hey {
+      margin-bottom: 0;
+      font-size: 20px;
+
+      margin-top: 60px;
+    }
+
+    #container {
+      transition: opacity 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      max-width: 470px;
+      position: relative;
+      transition: opacity 0.5s ease;
+      padding: 0 20px;
+    }
+
+    #cloud1 {
+      position: absolute;
+      top: 150px;
+      left: -170px;
+      width: 400px;
+    }
+
+   #cloud3 {
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    width: 200px;
+  }
+
+
+    #cloud2{
+      width: 0px;
+    }
+    #visual {
+      margin-top: 1px;
+      display: flex;
+      width: 100%;
+      max-width: 260px;
+      justify-self: right;
+    }
+    #designer {
+      align-self: flex-end;
+      width: 300px;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: nowrap; /* Prevent wrapping */
+      overflow-x: auto; /* Enable horizontal scroll */
+      white-space: nowrap; /* Keep items in one line */
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #a3c7e3;
+      border-radius: 10px;
+      background-color: white;
+      max-width: 100%;
+      margin: 20px auto;
+      font-family: "Recoleta", Georgia, serif;
+      position: sticky;
+      top: 47px;
+      z-index: 10;
+
+    }
+
+    /* Hide scrollbar but still allow scrolling */
+    .menu-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .menu-container::-webkit-scrollbar-thumb {
+      background: #3290ca;
+      border-radius: 3px;
+    }
+
+    .menu-item {
+      margin-top: 10px;
+      flex: 0 0 auto; /* Prevent shrinking */
+      padding: 3px 10px;
+      border-radius: 15px;
+      background-color: #f0f8ff;
+      color: #3290ca;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .bigcontainer {
+      padding: 20px;
+    }
+
+    .grid-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 2px solid #a3c7e3;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      background-color: white;
+      height: 300px;
+    }
+    .grid-item .overlay {
+      opacity: 1;
+      transition: none;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(46, 46, 46, 0.8)
+      );
+      color: white;
+      font-size: 20px;
+      padding-top: 40px;
+      padding-left: 20px;
+      padding-bottom: 15px;
+      padding-right: 20px;
+      text-align: left;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      font-family: cloud;
+      font-weight: 100;
+      text-shadow: black 1px 1px;
+
+
+
+    }
+    html {
+      cursor: none;
+
+    }
+
+  }
+
 </style>

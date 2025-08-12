@@ -43,35 +43,38 @@ import "../styles/global.css";
     </footer>
 
      <script>
-    const cursor = document.getElementById("custom-cursor");
-    let rotation = 0;
-    let lastScroll = window.scrollY;
+if (window.innerWidth > 768) { // only for screens wider than 768px
+  const cursor = document.getElementById("custom-cursor");
+  let rotation = 0;
+  let lastScroll = window.scrollY;
 
-    // Follow mouse
-    document.addEventListener("mousemove", (e) => {
-      const target = e.target;
+  // Follow mouse
+  document.addEventListener("mousemove", (e) => {
+    const target = e.target;
 
-      // Hide PNG cursor & show native hand on buttons/links
-      if (target.tagName === "BUTTON" || target.tagName === "A") {
-        cursor.style.display = "none";
-      } else {
-        cursor.style.display = "block";
-        cursor.style.top = e.clientY + "px";
-        cursor.style.left = e.clientX + "px";
-      }
-    });
+    // Hide PNG cursor & show native hand on buttons/links
+    if (target.tagName === "BUTTON" || target.tagName === "A") {
+      cursor.style.display = "none";
+    } else {
+      cursor.style.display = "block";
+      cursor.style.top = e.clientY + "px";
+      cursor.style.left = e.clientX + "px";
+    }
+  });
 
-    // Rotate PNG cursor on scroll
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > lastScroll) {
-        rotation += 10;
-      } else {
-        rotation -= 10;
-      }
-      lastScroll = window.scrollY;
+  // Rotate PNG cursor on scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > lastScroll) {
+      rotation += 10;
+    } else {
+      rotation -= 10;
+    }
+    lastScroll = window.scrollY;
 
-      cursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-    });
+    cursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+  });
+}
+
   </script>
   </body>
 </html>
@@ -171,12 +174,17 @@ import "../styles/global.css";
 
   }
 
+
 @media (max-width: 600px) {
    .nav-list li a {
     color: #3498db;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 500;
+  }
+
+  .nav-list{
+    padding: 5px 10px;
   }
   .nav-left,
   .nav-right {
@@ -186,7 +194,7 @@ import "../styles/global.css";
     padding: 0px 2px;
   }
  .logo img {
-    height: 44px;
+    height: 35px;
     padding: 0px;
     margin-bottom: -5px;
   }
@@ -194,13 +202,18 @@ import "../styles/global.css";
     padding: 10px 10px;
     display: flex;
     justify-content: center;
+
   }
-*{
-  min-width: 100vh;
-}
+    #custom-cursor {
+    display: none;
+  }
+
+    body {
+    cursor: auto;
+  }
+
 
 }
-
 
 
 
