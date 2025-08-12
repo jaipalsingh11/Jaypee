@@ -1,0 +1,235 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+---
+
+<Mainlayout id="main">
+  <div id="container">
+    <h1 id="about-project">Logo Design</h1>
+    <p>
+      <b>Context:</b> Logo design project for XDefend, an EDR solution service based
+      in Redmond, Washington, worked on in 2022.
+    </p>
+
+    <img id="cloud1" src="cloud.png" alt="" />
+    <img id="cloud2" src="cloud.png" alt="" />
+    <img id="cloud3" src="cloud3.png" alt="" />
+  </div>
+
+  <div id="bigcontainer">
+    <div class="vertical-carousel">
+      {
+        Array.from({ length: 4 }).map((_, i) => (
+          <div className="slide" key={i}>
+            <img src={`/xdefend/xdefend${i + 1}.png`} alt={`Slide ${i + 1}`} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Mainlayout>
+
+<script>
+  if (window.innerWidth > 600)  {
+
+  let targetScroll = window.scrollY;
+  let currentScroll = window.scrollY;
+  const speed = 0.08; // lower = more delay
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      targetScroll += e.deltaY;
+      targetScroll = Math.max(0, targetScroll); // prevent negative scroll
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+
+  function smoothScroll() {
+    currentScroll += (targetScroll - currentScroll) * speed;
+    window.scrollTo(0, currentScroll);
+    requestAnimationFrame(smoothScroll);
+  }
+
+  smoothScroll();
+
+ }
+   const aboutProject = document.getElementById("about-project");
+  const container = document.getElementById("container");
+
+  function fitText() {
+    let
+    fontSize = 400; // start big
+    aboutProject.style.fontSize = fontSize + "px";
+
+    // Reduce font size until the text width fits inside the container
+    while (aboutProject.scrollWidth > container.clientWidth && fontSize > 10) {
+      fontSize -= 1;
+      aboutProject.style.fontSize = fontSize + "px";
+    }
+  }
+
+  // Run on page load and when window resizes
+  window.addEventListener("load", fitText);
+  window.addEventListener("resize", fitText);
+</script>
+
+<style>
+
+  .vertical-carousel {
+    display: flex;
+    flex-direction: column; /* stack rows vertically */
+    gap: 20px;
+    max-width: 1700px;
+    margin: 0 auto;
+  }
+
+  .slide {
+    position: relative;
+    display: inline-block;
+  }
+
+  .slide::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border: 4px solid rgb(0, 0, 0); /* test color */
+    border-radius: 16px;
+    z-index: 1;
+  }
+
+  .slide img {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1700px;
+    margin: 50px auto;
+    position: relative;
+    height: fit-content;
+    z-index: 1;
+  }
+
+  #cloud1 {
+    position: absolute;
+    top: 290px;
+    left: -360px;
+  }
+
+  #cloud2 {
+    position: absolute;
+    top: -120px;
+    right: -930px;
+    width: 1600px;
+  }
+
+  #cloud3 {
+    display: none;
+  }
+
+  #about-project {
+    color: aliceblue;
+    font-family: "Recoleta", Georgia, serif;
+    margin: 50px auto;
+    font-weight: 100;
+
+    white-space: nowrap; /* keeps text in one line */
+    overflow: hidden; /* hides overflow if any */
+    text-overflow: clip; /* no dots (...) */
+    width: 100%; /* full width of container */
+    text-align: center; /* center the text */
+  }
+
+  #bigcontainer {
+    background-color: white;
+    border-top: 1px #a3c7e3 solid;
+    z-index: 2;
+    padding: 0:
+    min-width: 100vh;
+  }
+
+  #bigcontainer img {
+    max-width: 100%;
+  }
+
+  #container p {
+    font-family: cloudthin;
+    font-size: 35px;
+    color: #476e8e;
+    margin-top: -75px;
+    padding-left: 30px;
+    padding-right: 30px;
+    z-index: 5;
+    font-weight: 700;
+  }
+  #container p b {
+    font-family: cloud;
+    font-weight: 100;
+  }
+
+  @media (max-width: 600px) {
+    #cloud2 {
+      display: none;
+    }
+
+#container {
+  max-width: 90%;
+  margin: 20px;
+}
+
+
+    #cloud1 {
+      position: absolute;
+      top: 100px;
+      left: -170px;
+      width: 400px;
+      opacity: 70%;
+    }
+    #cloud3 {
+
+     display: block;
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    width: 150px;
+    opacity: 70%;
+    }
+
+    #container p {
+      font-family: cloudthin;
+      font-size: 18px;
+      color: #476e8e;
+      margin-top: -5px;
+      padding: 0;
+      z-index: 5;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+
+     #about-project {
+      color: aliceblue;
+    font-family: "Recoleta", Georgia, serif;
+    margin: 50px auto;
+    font-weight: 100;
+    margin: 0;
+
+    white-space: nowrap; /* keeps text in one line */
+    overflow: hidden; /* hides overflow if any */
+    text-overflow: clip; /* no dots (...) */
+    width: 100%; /* full width of container */
+    text-align: center; /* center the text */
+margin-top: 20px;
+     }
+
+  }
+</style>
