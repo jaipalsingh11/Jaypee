@@ -1,0 +1,214 @@
+---
+const projects = [
+  {
+    title: 'TIMO: Time Is Money Challenge',
+    category: 'print',
+    image: 'timo.png',
+    link: '/timo'
+  },
+  {
+    title: 'ZellyGoms - Visual Identity, Packaging, Ad creatives',
+    category: 'uiux',
+    image: 'zellygoms.png',
+    link: '/zellygoms'
+  },
+  {
+    title: 'Logo design project for XDefend',
+    category: 'uiux',
+    image: 'xdefend.png',
+    link: '/xdefend'
+  },
+  {
+    title: 'Famyo: Brand Identity and Brand Guideline Booklet',
+    category: 'uiux',
+    image: 'famyo-identity.png',
+    link: '/famyo-identity'
+  },
+  {
+    title: 'Brochure Design for a cybersecurity course by SECMATRIX',
+    category: 'uiux',
+    image: 'secmatrix-brochure.png',
+    link: '/secmatrix-brochure'
+  }
+];
+
+// Get unique categories + "all"
+const categories = ['all', ...new Set(projects.map(p => p.category))];
+---
+
+<!-- Filter Menu -->
+<div class="menu-container">
+  {categories.map(cat => (
+    <div class="menu-item" data-filter={cat}>
+      {cat === 'all' ? 'Show All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+    </div>
+  ))}
+</div>
+
+<!-- Project Grid -->
+<div class="grid-container">
+  {projects.map(project => (
+    <a href={project.link}>
+      <div class="grid-item show" data-category={project.category}>
+        <img src={project.image} alt={project.title} />
+        <div class="overlay">{project.title}</div>
+      </div>
+    </a>
+  ))}
+</div>
+
+<!-- Filtering Script -->
+<script is:inline>
+  const buttons = document.querySelectorAll(".menu-item");
+  const projectItems = document.querySelectorAll(".grid-item");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      const filter = button.getAttribute("data-filter");
+
+      projectItems.forEach((project) => {
+        const isMatch = filter === "all" || project.getAttribute("data-category") === filter;
+
+        if (isMatch) {
+          project.classList.remove("hide");
+          project.classList.add("show");
+        } else {
+          project.classList.remove("show");
+          project.classList.add("hide");
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1700px;
+  }
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid #a3c7e3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    height: 250px;
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .grid-item.hide {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+
+  .grid-item.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    transition: transform 0.9s ease;
+  }
+
+  .grid-item img:hover {
+    transform: scale(1.06);
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8));
+    color: white;
+    font-size: clamp(14px, 2vw, 20px);
+    padding: 40px 20px 15px 20px;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    font-family: cloud;
+    font-weight: 100;
+    text-shadow: black 1px 1px;
+  }
+
+  .grid-item:hover .overlay {
+    opacity: 1;
+  }
+
+  .menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px 20px;
+    border: 1px solid #a3c7e3;
+    border-radius: 20px;
+    background-color: white;
+    margin: 20px auto;
+    font-family: "Recoleta", Georgia, serif;
+    max-width: 100%;
+    justify-content: center;
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+  }
+
+  .menu-item {
+    padding: 5px 15px;
+    border-radius: 15px;
+    background-color: #f0f8ff;
+    color: #3290ca;
+    font-size: clamp(14px, 2.5vw, 30px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+  }
+
+  .menu-item.active {
+    background-color: #3290ca;
+    color: white;
+  }
+
+  .menu-item:hover {
+    background-color: #cbe8f8;
+  }
+
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .menu-container {
+      flex-direction: row;
+      gap: 5px;
+      top: 80px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .menu-item {
+      font-size: 14px;
+      padding: 5px 10px;
+    }
+
+    .overlay {
+      padding: 20px 10px;
+      font-size: 14px;
+    }
+  }
+</style>

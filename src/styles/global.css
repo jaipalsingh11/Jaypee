@@ -1,18 +1,18 @@
 @font-face {
-  font-family: 'Recoleta';
-  src: url('/fonts/fonnts.com-recoletaalt-medium.otf') format('opentype');
+  font-family: "Recoleta";
+  src: url("/fonts/fonnts.com-recoletaalt-medium.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Cloud';
-  src: url('/fonts/CloudSoft-Bold 700.otf') format('opentype');
+  font-family: "Cloud";
+  src: url("/fonts/CloudSoft-Bold 700.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Cloudthin';
-  src: url('/fonts/CloudSoft-Light.otf') format('opentype');
+  font-family: "Cloudthin";
+  src: url("/fonts/CloudSoft-Light.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }

@@ -1,0 +1,289 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+
+const projects = [
+  {
+    title: "TIMO: Time Is Money Challenge",
+    img: "timo.png",
+    category: "print",
+    link: "/timo",
+  },
+  {
+    title: "ZellyGoms - Visual Identity, Packaging, Ad creatives",
+    img: "zellygoms.png",
+    category: "uiux",
+    link: "/zellygoms",
+  },
+  {
+    title: "Logo design project for XDefend",
+    img: "xdefend.png",
+    category: "uiux",
+    link: "/xdefend",
+  },
+  {
+    title: "Famyo: Brand Identity and Brand Guideline Booklet",
+    img: "famyo-identity.png",
+    category: "uiux",
+    link: "/famyo-identity",
+  },
+  {
+    title: "Brochure Design for a cybersecurity course by SECMATRIX",
+    img: "secmatrix-brochure.png",
+    category: "uiux",
+    link: "/secmatrix-brochure",
+  },
+  { title: "Project Placeholder 1", img: "project1.png", category: "ads" },
+  { title: "Project Placeholder 2", img: "project1.png", category: "ads" },
+  { title: "Project Placeholder 3", img: "project1.png", category: "ads" },
+  { title: "Project Placeholder 4", img: "project1.png", category: "ads" },
+  { title: "Project Placeholder 5", img: "project1.png", category: "ads" },
+  { title: "Project Placeholder 6", img: "project2.png", category: "photo" },
+  { title: "Project Placeholder 7", img: "project1.png", category: "photo" },
+  { title: "Project Placeholder 8", img: "project2.png", category: "photo" },
+  { title: "Project Placeholder 9", img: "project1.png", category: "video" },
+  {
+    title: "Project Placeholder 10",
+    img: "project1.png",
+    category: "research",
+  },
+  {
+    title: "Project Placeholder 11",
+    img: "project1.png",
+    category: "research",
+  },
+];
+---
+
+<Mainlayout id="main">
+  <div id="container">
+    <p id="hey">Hey I’m Jaypee a</p>
+    <img id="visual" src="Visual.svg" alt="" />
+    <img id="designer" src="Designer.svg" alt="" />
+
+    <img id="cloud1" src="cloud.png" alt="" />
+    <img id="cloud2" src="cloud.png" alt="" />
+  </div>
+
+  <div class="bigcontainer">
+    <div class="menu-container">
+      <div class="menu-item active" data-filter="all">Show All</div>
+      <div class="menu-item" data-filter="print">Print media</div>
+      <div class="menu-item" data-filter="uiux">UI/UX</div>
+      <div class="menu-item" data-filter="ads">Ad Creatives</div>
+      <div class="menu-item" data-filter="photo">Photography</div>
+      <div class="menu-item" data-filter="video">Videography</div>
+      <div class="menu-item" data-filter="research">Research</div>
+    </div>
+
+    <div class="grid-container" id="projectsGrid"></div>
+  </div>
+
+  <!-- Pass projects array to JS -->
+  <script
+    type="application/json"
+    id="projects-data"
+    set:html={JSON.stringify(projects)}
+  />
+
+  <script is:inline>
+    const projectsData = JSON.parse(
+      document.getElementById("projects-data").textContent
+    );
+    const grid = document.getElementById("projectsGrid");
+    const buttons = document.querySelectorAll(".menu-item");
+
+   function renderProjects(filter) {
+  grid.innerHTML = "";
+  const filtered = filter === "all"
+    ? projectsData
+    : projectsData.filter(p => p.category === filter);
+
+  filtered.forEach(project => {
+    const item = document.createElement("div");
+    item.className = "grid-item";
+    item.dataset.category = project.category;
+
+    // Build inner HTML
+    item.innerHTML = `
+      ${project.link ? `<a href="${project.link}">` : ""}
+        <img src="${project.img}" alt="${project.title}" />
+        <div class="overlay">${project.title}</div>
+      ${project.link ? `</a>` : ""}
+    `;
+
+    grid.appendChild(item);
+  });
+}
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderProjects(btn.dataset.filter);
+      });
+    });
+
+    renderProjects("all");
+  </script>
+</Mainlayout>
+
+<style>
+  #hey {
+    margin-bottom: 0;
+  }
+
+  .grid-item {
+    position: relative; /* So overlay can position itself over the image */
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid #a3c7e3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    height: 250px;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(0, 0, 0, 0.8)
+    );
+    color: white;
+    font-size: 20px;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    font-family: cloud;
+    font-weight: 100;
+    text-shadow: black 1px 1px;
+  }
+
+  .grid-item:hover .overlay {
+    opacity: 1;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1700px;
+  }
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid #a3c7e3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    height: 250px;
+  }
+
+  .grid-item img:hover {
+    transform: scale(1.06);
+  }
+
+  .grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    transition: transform 0.9s ease;
+  }
+
+  .menu-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px 20px;
+    border: 1px solid #a3c7e3;
+    border-radius: 20px;
+    background-color: white;
+    max-width: 70%;
+    margin: 20px auto;
+    font-family: "Recoleta", Georgia, serif;
+    max-width: 1690px;
+    display: flex;
+    justify-content: space-evenly;
+    position: sticky;
+    top: 140px;
+    z-index: 10;
+  }
+
+  .menu-item {
+    padding: 5px 20px;
+    border-radius: 15px;
+    background-color: #f0f8ff;
+    color: #3290ca;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .menu-item.active {
+    background-color: #3290ca;
+    color: white;
+  }
+
+  .menu-item:hover {
+    background-color: #cbe8f8;
+  }
+
+  #hey {
+    color: rgb(255, 255, 255);
+    font-size: 80px;
+    font-family: "Recoleta", Georgia, serif;
+    margin-top: 100px;
+  }
+
+  #sun {
+    margin-bottom: 1%;
+  }
+
+  #container {
+    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1700px;
+    position: relative;
+    transition: opacity 0.5s ease;
+  }
+
+  #cloud1 {
+    position: absolute;
+    top: 500px;
+    left: -100px;
+  }
+  #cloud2 {
+    position: absolute;
+    top: 150px;
+    right: -430px;
+    width: 1600px;
+  }
+
+  #visual {
+    margin-top: 1px;
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    justify-self: right;
+  }
+
+  #designer {
+    align-self: flex-end;
+    width: 1200px;
+  }
+  .bigcontainer {
+    height: fit-content;
+  }
+</style>
