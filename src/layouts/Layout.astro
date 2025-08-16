@@ -40,6 +40,7 @@ import "../styles/global.css";
 
     <footer>
       <img id="image" width="100%" src="/treefooter.png" alt="" />
+      <img id="mobile-image" src="/Images/mobile-footer.png" alt="">
     </footer>
 
      <script>
@@ -174,6 +175,9 @@ if (window.innerWidth > 768) { // only for screens wider than 768px
 
   }
 
+  #mobile-image {
+    display: none;
+  }
 
 @media (max-width: 600px) {
    .nav-list li a {
@@ -211,7 +215,14 @@ if (window.innerWidth > 768) { // only for screens wider than 768px
     body {
     cursor: auto;
   }
-
+  #image {
+    display: none;
+  }
+#mobile-image{
+ width: 100%;
+ display: block;
+ padding: 0;
+}
 
 }
 

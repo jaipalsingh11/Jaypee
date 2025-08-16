@@ -11,7 +11,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
 
     <img id="cloud1" src="cloud.png" alt="" />
     <img id="cloud2" src="cloud.png" alt="" />
-    <img id="cloud3" src="cloud3.png" alt=""  />
+    <img id="cloud3" src="cloud3.png" alt="" />
   </div>
   <div class="bigcontainer">
     <div class="menu-container">
@@ -99,51 +99,78 @@ import ProjectGallery from "../components/ProjectGallery.astro";
       </div>
     </div>
   </div>
-
   <script is:inline>
-
+    // Scroll fade effect — only for desktop
     if (window.innerWidth > 768) {
-    window.addEventListener("scroll", function () {
-      const container = document.getElementById("container");
-      const scrollY = window.scrollY;
-      const fadePoint = 600;
+      window.addEventListener("scroll", function () {
+        const container = document.getElementById("container");
+        const scrollY = window.scrollY;
+        const fadePoint = 600;
 
-      let opacity = 1 - scrollY / fadePoint;
-      if (opacity < 0) opacity = 0;
-      if (opacity > 1) opacity = 1;
+        let opacity = 1 - scrollY / fadePoint;
+        if (opacity < 0) opacity = 0;
+        if (opacity > 1) opacity = 1;
 
-      container.style.opacity = opacity;
-    });
+        container.style.opacity = opacity;
+      });
+    }
+
+    // Filtering — works on ALL screen sizes
     const buttons = document.querySelectorAll(".menu-item");
-    const projects = document.querySelectorAll(".grid-item");
+    const projects = document.querySelectorAll(".grid-container > *");
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        // Remove active class from all buttons
         buttons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
         const filter = button.getAttribute("data-filter");
+
         projects.forEach((project) => {
-          if (
-            filter === "all" ||
-            project.getAttribute("data-category") === filter
-          ) {
-            project.style.display = "block";
+          const gridItem = project.querySelector(".grid-item");
+          const category = gridItem
+            ? gridItem.getAttribute("data-category")
+            : null;
+
+          if (filter === "all" || category === filter) {
+            project.style.display = "";
+            requestAnimationFrame(() => {
+              project.classList.remove("fade-out");
+              project.classList.add("fade-in");
+            });
           } else {
-            project.style.display = "none";
+            project.classList.remove("fade-in");
+            project.classList.add("fade-out");
+            setTimeout(() => {
+              project.style.display = "none";
+            }, 300);
           }
         });
       });
     });
-  }
   </script>
 </Mainlayout>
 
 <style>
-#cloud3 {
-  display: none;
-}
+  .grid-container > * {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .fade-out {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  #cloud3 {
+    display: none;
+  }
 
   #hey {
     margin-bottom: 0;
@@ -157,6 +184,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     background-color: white;
     height: 250px;
+    max-width: 400px;
   }
 
   .overlay {
@@ -219,6 +247,8 @@ import ProjectGallery from "../components/ProjectGallery.astro";
   }
 
   .menu-container {
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto;
     display: flex;
     gap: 20px;
     padding: 20px 20px;
@@ -235,6 +265,13 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     top: 140px;
     z-index: 10;
   }
+  .menu-container {
+    scrollbar-width: none; /* For Firefox */
+  }
+
+  .menu-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, Edge */
+  }
 
   .menu-item {
     padding: 5px 20px;
@@ -243,6 +280,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     color: #3290ca;
     font-size: 30px;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.3s ease;
   }
 
@@ -271,7 +309,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     position: relative;
     transition: opacity 0.5s ease;
     padding: 0 90px;
-overflow-x: clip;
+    overflow-x: clip;
   }
 
   #cloud1 {
@@ -318,7 +356,7 @@ overflow-x: clip;
       position: relative;
       transition: opacity 0.5s ease;
       padding: 0 20px;
-overflow-x: clip;
+      overflow-x: clip;
     }
 
     #cloud1 {
@@ -346,147 +384,6 @@ overflow-x: clip;
       width: 390px;
     }
 
-     .menu-container {
-    display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping */
-    overflow-x: auto;  /* Enable horizontal scroll */
-    white-space: nowrap; /* Keep items in one line */
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #a3c7e3;
-    border-radius: 20px;
-    background-color: white;
-    max-width: 100%;
-    margin: 20px auto;
-    font-family: "Recoleta", Georgia, serif;
-    position: sticky;
-    top: 7%;
-    z-index: 10;
-
-
-    /* Visual hint: subtle fading edges */
-    background-image: linear-gradient(to right, white 90%, rgba(255,255,255,0)),
-                      linear-gradient(to left, white 90%, rgba(255,255,255,0));
-    background-position: left center, right center;
-    background-repeat: no-repeat;
-    background-size: 30px 100%;
-  }
-
-  /* Hide scrollbar but still allow scrolling */
-  .menu-container::-webkit-scrollbar {
-    height: 6px;
-  }
-  .menu-container::-webkit-scrollbar-thumb {
-    background: #cbe8f8;
-    border-radius: 3px;
-  }
-
-  .menu-item {
-    flex: 0 0 auto; /* Prevent shrinking */
-    padding: 8px 12px;
-    border-radius: 15px;
-    background-color: #f0f8ff;
-    color: #3290ca;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .bigcontainer{
-    padding: 20px;
-  }
-
-  .grid-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    border: 2px solid #a3c7e3;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    background-color: white;
-    height: 300px;
-  }
-  .grid-item .overlay {
-  opacity: 1;
-  transition: none;
-}
-
-.overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0),
-      rgba(46, 46, 46, 0.8)
-    );
-    color: white;
-    font-size: 20px;
-    padding-top: 40px;
-    padding-left: 20px;
-    padding-bottom: 15px;
-    padding-right: 20px;
-    text-align: left;
-    opacity: 0;
-    transition: opacity 0.7s ease;
-    font-family: cloud;
-    font-weight: 100;
-    text-shadow: black 1px 1px;
-  }
-
-  }
-
-
-
-  @media (max-width: 600px) {
-    #hey {
-      margin-bottom: 0;
-      font-size: 20px;
-
-      margin-top: 60px;
-    }
-
-    #container {
-      transition: opacity 0.5s ease;
-      display: flex;
-      flex-direction: column;
-      margin: 0 auto;
-      max-width: 470px;
-      position: relative;
-      transition: opacity 0.5s ease;
-      padding: 0 20px;
-    }
-
-    #cloud1 {
-      position: absolute;
-      top: 150px;
-      left: -170px;
-      width: 400px;
-    }
-
-   #cloud3 {
-    display: block;
-    position: absolute;
-    top: 50px;
-    right: 0px;
-    width: 200px;
-  }
-
-
-    #cloud2{
-      width: 0px;
-    }
-    #visual {
-      margin-top: 1px;
-      display: flex;
-      width: 100%;
-      max-width: 260px;
-      justify-self: right;
-    }
-    #designer {
-      align-self: flex-end;
-      width: 300px;
-    }
-
     .menu-container {
       display: flex;
       flex-wrap: nowrap; /* Prevent wrapping */
@@ -495,15 +392,27 @@ overflow-x: clip;
       gap: 10px;
       padding: 10px;
       border: 1px solid #a3c7e3;
-      border-radius: 10px;
+      border-radius: 20px;
       background-color: white;
       max-width: 100%;
       margin: 20px auto;
       font-family: "Recoleta", Georgia, serif;
       position: sticky;
-      top: 47px;
+      top: 7%;
       z-index: 10;
 
+      /* Visual hint: subtle fading edges */
+      background-image: linear-gradient(
+          to right,
+          white 90%,
+          rgba(255, 255, 255, 0)
+        ),
+        linear-gradient(to left, white 90%, rgba(255, 255, 255, 0));
+      background-position:
+        left center,
+        right center;
+      background-repeat: no-repeat;
+      background-size: 30px 100%;
     }
 
     /* Hide scrollbar but still allow scrolling */
@@ -511,18 +420,17 @@ overflow-x: clip;
       height: 6px;
     }
     .menu-container::-webkit-scrollbar-thumb {
-      background: #3290ca;
+      background: #cbe8f8;
       border-radius: 3px;
     }
 
     .menu-item {
-      margin-top: 10px;
       flex: 0 0 auto; /* Prevent shrinking */
-      padding: 3px 10px;
+      padding: 8px 12px;
       border-radius: 15px;
       background-color: #f0f8ff;
       color: #3290ca;
-      font-size: 15px;
+      font-size: 18px;
       cursor: pointer;
       transition: all 0.3s ease;
     }
@@ -566,15 +474,143 @@ overflow-x: clip;
       font-family: cloud;
       font-weight: 100;
       text-shadow: black 1px 1px;
+    }
+  }
 
+  @media (max-width: 600px) {
+    #hey {
+      margin-bottom: 0;
+      font-size: 20px;
 
+      margin-top: 60px;
+    }
 
+    #container {
+      transition: opacity 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      max-width: 470px;
+      position: relative;
+      transition: opacity 0.5s ease;
+      padding: 0 20px;
+    }
+
+    #cloud1 {
+      position: absolute;
+      top: 150px;
+      left: -170px;
+      width: 400px;
+    }
+
+    #cloud3 {
+      display: block;
+      position: absolute;
+      top: 50px;
+      right: 0px;
+      width: 200px;
+    }
+
+    #cloud2 {
+      width: 0px;
+    }
+    #visual {
+      margin-top: 1px;
+      display: flex;
+      width: 100%;
+      max-width: 260px;
+      justify-self: right;
+    }
+    #designer {
+      align-self: flex-end;
+      width: 300px;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: nowrap; /* Prevent wrapping */
+      overflow-x: auto; /* Enable horizontal scroll */
+      white-space: nowrap; /* Keep items in one line */
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #a3c7e3;
+      border-radius: 10px;
+      background-color: white;
+      max-width: 100%;
+      margin: 20px auto;
+      font-family: "Recoleta", Georgia, serif;
+      position: sticky;
+      top: 47px;
+      z-index: 10;
+    }
+
+    /* Hide scrollbar but still allow scrolling */
+    .menu-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .menu-container::-webkit-scrollbar-thumb {
+      background: #3290ca;
+      border-radius: 3px;
+    }
+
+    .menu-item {
+      margin-top: 10px;
+      flex: 0 0 auto; /* Prevent shrinking */
+      padding: 3px 10px;
+      border-radius: 15px;
+      background-color: #f0f8ff;
+      color: #3290ca;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .bigcontainer {
+      padding: 20px;
+    }
+
+    .grid-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 2px solid #a3c7e3;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      background-color: white;
+      height: 300px;
+    }
+    .grid-item .overlay {
+      opacity: 1;
+      transition: none;
+    }
+     .menu-item.active {
+    background-color: #3290ca;
+    color: white;
+  }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(46, 46, 46, 0.8)
+      );
+      color: white;
+      font-size: 20px;
+      padding-top: 40px;
+      padding-left: 20px;
+      padding-bottom: 15px;
+      padding-right: 20px;
+      text-align: left;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      font-family: cloud;
+      font-weight: 100;
+      text-shadow: black 1px 1px;
     }
     html {
       cursor: none;
-
     }
-
   }
-
 </style>
