@@ -1,0 +1,269 @@
+---
+import Mainlayout from "../layouts/Layout.astro";
+
+const {
+  title = "Project Title",
+  context = "Project description here",
+  videoUrl, // YouTube URL (any format)
+  cloud1 = "/Images/cloud.png",
+  cloud2 = "/Images/cloud.png",
+  cloud3 = "/Images/cloud3.png",
+} = Astro.props;
+
+// Convert any YouTube URL into a proper embed URL
+function toEmbed(url) {
+  if (!url) return "";
+  const u = new URL(url);
+  let id = "";
+
+  if (u.hostname.includes("youtu.be")) {
+    id = u.pathname.slice(1);
+  } else if (u.pathname.startsWith("/shorts/")) {
+    id = u.pathname.split("/")[2] || "";
+  } else if (u.searchParams.get("v")) {
+    id = u.searchParams.get("v") || "";
+  }
+
+  const list = u.searchParams.get("list");
+  let embed = id
+    ? `https://www.youtube-nocookie.com/embed/${id}`
+    : list
+      ? `https://www.youtube-nocookie.com/embed/videoseries?list=${list}`
+      : "";
+
+  if (embed) {
+    embed += embed.includes("?") ? "&" : "?";
+    embed += "rel=0&modestbranding=1&color=white";
+  }
+
+  return embed;
+}
+
+const embed = toEmbed(videoUrl);
+---
+
+<Mainlayout id="main">
+  <div id="container">
+    <h1 id="about-project">{title}</h1>
+    <p><b>Context:</b> {context}</p>
+
+    <img id="cloud1" src={cloud1} alt="" />
+    <img id="cloud2" src={cloud2} alt="" />
+    <img id="cloud3" src={cloud3} alt="" />
+  </div>
+
+  <div id="bigcontainer">
+    <div class="video-container">
+      {
+        embed ? (
+          <div class="video-wrap">
+            <iframe
+              class="video"
+              src={embed}
+              title={title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            />
+          </div>
+        ) : (
+          <p class="video-error">
+            Invalid YouTube link. Please pass a full <code>videoUrl</code>.
+          </p>
+        )
+      }
+    </div>
+  </div>
+</Mainlayout>
+
+<script>
+  // Smooth scroll (same as other layout)
+  if (window.innerWidth > 600) {
+    let targetScroll = window.scrollY;
+    let currentScroll = window.scrollY;
+    const speed = 0.08;
+
+    window.addEventListener(
+      "wheel",
+      (e) => {
+        targetScroll += e.deltaY;
+        targetScroll = Math.max(0, targetScroll);
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+
+    function smoothScroll() {
+      currentScroll += (targetScroll - currentScroll) * speed;
+      window.scrollTo(0, currentScroll);
+      requestAnimationFrame(smoothScroll);
+    }
+    smoothScroll();
+  }
+
+  // Dynamic title resizing (same as other pages)
+  const aboutProject = document.getElementById("about-project");
+  const container = document.getElementById("container");
+
+  function fitText() {
+    let fontSize = 400;
+    aboutProject.style.fontSize = fontSize + "px";
+    while (aboutProject.scrollWidth > container.clientWidth && fontSize > 10) {
+      fontSize -= 1;
+      aboutProject.style.fontSize = fontSize + "px";
+    }
+  }
+
+  window.addEventListener("load", fitText);
+  window.addEventListener("resize", fitText);
+</script>
+
+<style>
+  /* Container setup (same as your UI/UX layout) */
+  #container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1700px;
+    margin: 50px auto;
+    position: relative;
+    height: fit-content;
+    z-index: 1;
+  }
+
+  #cloud1 {
+    position: absolute;
+    top: 290px;
+    left: -360px;
+  }
+  #cloud2 {
+    position: absolute;
+    top: -120px;
+    right: -930px;
+    width: 1600px;
+  }
+  #cloud3 {
+    display: none;
+  }
+
+  #about-project {
+    color: aliceblue;
+    font-family: "Recoleta", Georgia, serif;
+    margin: 50px auto;
+    font-weight: 100;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: 100%;
+    text-align: center;
+  }
+
+  #container p {
+    font-family: cloudthin;
+    font-size: 35px;
+    color: #476e8e;
+    margin-top: -75px;
+    padding: 0 0px;
+    z-index: 5;
+    font-weight: 700;
+  }
+
+  #container p b {
+    font-family: cloud;
+    font-weight: 100;
+  }
+
+  #bigcontainer {
+    background-color: white;
+    border-top: 1px #a3c7e3 solid;
+    z-index: 2;
+    padding: 0 0 60px 0;
+    min-height: 60vh;
+    width: 100%;
+  }
+
+  /* Video area */
+  .video-container {
+    max-width: 1700px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+  }
+
+  .video-wrap {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e4edf6;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .video {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
+  }
+
+  .video-error {
+    color: #c64545;
+    font-family:
+      system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      Arial,
+      sans-serif;
+    padding: 16px;
+    background: #fff6f6;
+    border: 1px solid #ffdcdc;
+    border-radius: 10px;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 600px) {
+    #cloud2 {
+      display: none;
+    }
+    #container {
+      max-width: 90%;
+      margin: 20px;
+    }
+    #cloud1 {
+      position: absolute;
+      top: 100px;
+      left: -170px;
+      width: 400px;
+      opacity: 70%;
+    }
+    #cloud3 {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: -20px;
+      width: 150px;
+      opacity: 70%;
+    }
+
+    #container p {
+      font-size: 15px;
+      margin-top: -5px;
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+    #about-project {
+      color: aliceblue;
+      font-family: "Recoleta", Georgia, serif;
+      margin: 0;
+      font-weight: 100;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+</style>

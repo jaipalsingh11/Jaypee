@@ -9,9 +9,9 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     <img id="visual" src="Visual.svg" alt="" />
     <img id="designer" src="Designer.svg" alt="" />
 
-    <img id="cloud1" src="cloud.png" alt="" />
-    <img id="cloud2" src="cloud.png" alt="" />
-    <img id="cloud3" src="cloud3.png" alt="" />
+    <img id="cloud1" src="/Images/cloud.png" alt="" />
+    <img id="cloud2" src="/Images/cloud.png" alt="" />
+    <img id="cloud3" src="/Images/cloud3.png" alt="" />
   </div>
   <div class="bigcontainer">
     <div class="menu-container">
@@ -78,15 +78,24 @@ import ProjectGallery from "../components/ProjectGallery.astro";
           <div class="overlay">Website Design For an It consultancy agency</div>
         </div>
       </a>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 3" />
-      </div>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 1" />
-      </div>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 2" />
-      </div>
+      <a href="/lastday">
+        <div class="grid-item" data-category="UiUx">
+          <img src="lastday.png" alt="basictech" />
+          <div class="overlay">Motion Graphics for a music video</div>
+        </div>
+      </a>
+      <a href="/manjuben">
+        <div class="grid-item" data-category="UiUx">
+          <img src="manjuben.jpg" alt="basictech" />
+          <div class="overlay">Non fiction film about dog a rescuer</div>
+        </div>
+      </a>
+       <a href="/hillsquills">
+        <div class="grid-item" data-category="UiUx">
+          <img src="hillsquills.png" alt="basictech" />
+          <div class="overlay">Non fiction film about dog a rescuer</div>
+        </div>
+      </a>
       <div class="grid-item">
         <img src="project2.png" alt="Project 3" />
       </div>
@@ -335,8 +344,8 @@ import ProjectGallery from "../components/ProjectGallery.astro";
   #cloud2 {
     position: absolute;
     top: 150px;
-    right: -430px;
-    width: 1600px;
+    right: -130px;
+    width: 1200px;
   }
 
   #visual {
