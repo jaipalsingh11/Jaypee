@@ -15,13 +15,13 @@ import ProjectGallery from "../components/ProjectGallery.astro";
   </div>
   <div class="bigcontainer">
     <div class="menu-container">
+      <div class="menu-item" data-filter="all">Show All</div>
       <div class="menu-item" data-filter="print">Print media</div>
       <div class="menu-item" data-filter="uiux">Ui Ux Design</div>
       <div class="menu-item" data-filter="branding">Branding</div>
       <div class="menu-item" data-filter="motion">Motion Graphics</div>
       <div class="menu-item" data-filter="video">Videography</div>
       <div class="menu-item" data-filter="research">Research</div>
-      <div class="menu-item" data-filter="all">Show All</div>
     </div>
     <div class="grid-container">
       <a href="/timo">
@@ -32,12 +32,26 @@ import ProjectGallery from "../components/ProjectGallery.astro";
           </div>
         </div>
       </a>
+      <a href="/basictech">
+        <div class="grid-item" data-category="uiux">
+          <img src="basictech.png" alt="basictech" />
+          <div class="overlay">Website Design For an It consultancy agency</div>
+        </div>
+      </a>
 
       <a href="/zellygoms">
         <div class="grid-item" data-category="branding">
           <img src="zellygoms.png" alt="Project 2" />
           <div class="overlay">
             ZellyGoms - Visual Identity, Packaging, Ad creatives
+          </div>
+        </div>
+      </a>
+      <a href="/hillsquills">
+        <div class="grid-item" data-category="uiux">
+          <img src="hillsquills.png" alt="basictech" />
+          <div class="overlay">
+            Website Design, A regional news website for Uttarakhand.
           </div>
         </div>
       </a>
@@ -72,12 +86,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
           </div>
         </div>
       </a>
-      <a href="/basictech">
-        <div class="grid-item" data-category="uiux">
-          <img src="basictech.png" alt="basictech" />
-          <div class="overlay">Website Design For an It consultancy agency</div>
-        </div>
-      </a>
+
       <a href="/lastday">
         <div class="grid-item" data-category="motion">
           <img src="lastday.png" alt="basictech" />
@@ -90,14 +99,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
           <div class="overlay">Non fiction film about dog a rescuer</div>
         </div>
       </a>
-      <a href="/hillsquills">
-        <div class="grid-item" data-category="uiux">
-          <img src="hillsquills.png" alt="basictech" />
-          <div class="overlay">
-            Website Design, A regional news website for Uttarakhand.
-          </div>
-        </div>
-      </a>
+
       <a href="/econest">
         <div class="grid-item" data-category="branding">
           <img src="econest.png" alt="basictech" />
