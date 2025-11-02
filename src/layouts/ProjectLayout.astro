@@ -5,9 +5,9 @@ const {
   title = "Project Title",
   context = "Project description here",
   galleryImages = [],
-  cloud1 = "/cloud.png",
-  cloud2 = "/cloud.png",
-  cloud3 = "/cloud3.png"
+  cloud1 = "/Images/cloud.png",
+  cloud2 = "/Images/cloud.png",
+  cloud3 = "/Images/cloud3.png",
 } = Astro.props;
 ---
 
@@ -23,11 +23,13 @@ const {
 
   <div id="bigcontainer">
     <div class="vertical-carousel">
-      {galleryImages.map((src, i) => (
-        <div class="slide" key={i}>
-          <img src={src} alt={`Slide ${i + 1}`} />
-        </div>
-      ))}
+      {
+        galleryImages.map((src, i) => (
+          <div class="slide" key={i}>
+            <img src={src} alt={`Slide ${i + 1}`} />
+          </div>
+        ))
+      }
     </div>
   </div>
 </Mainlayout>
@@ -207,18 +209,18 @@ const {
     }
 
     #about-project {
-       color: aliceblue;
-    font-family: "Recoleta", Georgia, serif;
-    margin: 50px auto;
-    font-weight: 100;
-    margin: 0;
+      color: aliceblue;
+      font-family: "Recoleta", Georgia, serif;
+      margin: 50px auto;
+      font-weight: 100;
+      margin: 0;
 
-    white-space: nowrap; /* keeps text in one line */
-    overflow: hidden; /* hides overflow if any */
-    text-overflow: clip; /* no dots (...) */
-    width: 100%; /* full width of container */
-    text-align: center; /* center the text */
-margin-top: 20px;
+      white-space: nowrap; /* keeps text in one line */
+      overflow: hidden; /* hides overflow if any */
+      text-overflow: clip; /* no dots (...) */
+      width: 100%; /* full width of container */
+      text-align: center; /* center the text */
+      margin-top: 20px;
     }
   }
 </style>

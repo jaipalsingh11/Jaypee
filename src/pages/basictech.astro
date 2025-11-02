@@ -1,0 +1,34 @@
+---
+// src/pages/basictech.astro  (example)
+import ProjectLayout from "../layouts/UiUxProjectLayout.astro";
+
+// 1) Define your images here
+const galleryImages = [
+  "/Basictech/Basictech1.png",
+  "/Basictech/Basictech2.png",
+  "/Basictech/Basictech3.png",
+  "/Basictech/Basictech4.png",
+];
+
+// 2) (Optional) Buttons under the images
+const ctas = [
+  {
+    label: "Prototype",
+    href: "/docs/basictech-case-study.pdf",
+    variant: "primary",
+  },
+  { label: "Live Website", href: "https://example.com", variant: "outline" },
+];
+---
+
+<ProjectLayout
+  title="Brand Identity"
+  context="This is a brand identity project I did in 2022 — a brand identity for an imaginary jelly bear brand named Zellygoms."
+  galleryImages={galleryImages}
+  cloud1="/Images/cloud.png"
+  cloud2="/Images/cloud.png"
+  cloud3="/Images/cloud3.png"
+  ctaTitle="Prototype"
+  ctaBody="Checkout Prototype and live website."
+  ctas={ctas}
+/>

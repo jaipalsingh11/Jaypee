@@ -16,8 +16,8 @@ import ProjectGallery from "../components/ProjectGallery.astro";
   <div class="bigcontainer">
     <div class="menu-container">
       <div class="menu-item" data-filter="print">Print media</div>
-      <div class="menu-item" data-filter="uiux">Ui Ux</div>
-      <div class="menu-item" data-filter="ads">Ad Creatives</div>
+      <div class="menu-item" data-filter="uiux">Ui Ux Design</div>
+      <div class="menu-item" data-filter="branding">Branding</div>
       <div class="menu-item" data-filter="photo">Photography</div>
       <div class="menu-item" data-filter="video">Videography</div>
       <div class="menu-item" data-filter="research">Research</div>
@@ -34,7 +34,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
       </a>
 
       <a href="/zellygoms">
-        <div class="grid-item" data-category="uiux">
+        <div class="grid-item" data-category="branding">
           <img src="zellygoms.png" alt="Project 2" />
           <div class="overlay">
             ZellyGoms - Visual Identity, Packaging, Ad creatives
@@ -43,13 +43,13 @@ import ProjectGallery from "../components/ProjectGallery.astro";
       </a>
 
       <a href="/xdefend">
-        <div class="grid-item" data-category="uiux">
+        <div class="grid-item" data-category="branding">
           <img src="xdefend.png" alt="Xdefend" />
           <div class="overlay">Logo design project for XDefend</div>
         </div>
       </a>
       <a href="/famyo-identity">
-        <div class="grid-item" data-category="uiux">
+        <div class="grid-item" data-category="branding">
           <img src="famyo-identity.png" alt="famyo brand identity" />
           <div class="overlay">
             Famyo: Brand Identity and Brand Guideline Booklet
@@ -57,19 +57,27 @@ import ProjectGallery from "../components/ProjectGallery.astro";
         </div>
       </a>
       <a href="/secmatrix-brochure">
-        <div class="grid-item" data-category="uiux">
-          <img src="secmatrix-brochure.png" alt="Secmatrix Brochure Design" />
+        <div class="grid-item" data-category="print">
+          <img src="secmatrix-brochure.png" alt="Shreeji Templates" />
           <div class="overlay">
             Brochure Design for a cybersecurity course by SECMATRIX
           </div>
         </div>
       </a>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 2" />
-      </div>
-      <div class="grid-item">
-        <img src="project1.png" alt="Project 3" />
-      </div>
+      <a href="/shreeji">
+        <div class="grid-item" data-category="print">
+          <img src="shreeji.png" alt="Secmatrix Brochure Design" />
+          <div class="overlay">
+            Printables, Sublimations, and party templates for Shreeji Templates
+          </div>
+        </div>
+      </a>
+      <a href="/basictech">
+        <div class="grid-item" data-category="UiUx">
+          <img src="basictech.png" alt="basictech" />
+          <div class="overlay">Website Design For an It consultancy agency</div>
+        </div>
+      </a>
       <div class="grid-item">
         <img src="project1.png" alt="Project 3" />
       </div>
@@ -100,59 +108,65 @@ import ProjectGallery from "../components/ProjectGallery.astro";
     </div>
   </div>
   <script is:inline>
-    // Scroll fade effect — only for desktop
-    if (window.innerWidth > 768) {
-      window.addEventListener("scroll", function () {
-        const container = document.getElementById("container");
-        const scrollY = window.scrollY;
-        const fadePoint = 600;
-
-        let opacity = 1 - scrollY / fadePoint;
-        if (opacity < 0) opacity = 0;
-        if (opacity > 1) opacity = 1;
-
-        container.style.opacity = opacity;
-      });
-    }
-
-    // Filtering — works on ALL screen sizes
+    // Filtering
     const buttons = document.querySelectorAll(".menu-item");
     const projects = document.querySelectorAll(".grid-container > *");
 
+    function applyFilter(filter, button) {
+      buttons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      projects.forEach((project) => {
+        const gridItem = project.querySelector(".grid-item");
+        const category = gridItem
+          ? gridItem.getAttribute("data-category")
+          : null;
+
+        if (filter === "all" || category === filter) {
+          // show before animating
+          project.style.display = "block";
+          requestAnimationFrame(() => {
+            project.classList.remove("fade-out");
+            project.classList.add("fade-in");
+          });
+        } else {
+          project.classList.remove("fade-in");
+          project.classList.add("fade-out");
+
+          // wait for animation, then hide
+          setTimeout(() => {
+            project.style.display = "none";
+          }, 300);
+        }
+      });
+    }
+
+    // click + touch events
     buttons.forEach((button) => {
+      const filter = button.getAttribute("data-filter");
+
       button.addEventListener("click", () => {
-        buttons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
+        applyFilter(filter, button);
+      });
 
-        const filter = button.getAttribute("data-filter");
-
-        projects.forEach((project) => {
-          const gridItem = project.querySelector(".grid-item");
-          const category = gridItem
-            ? gridItem.getAttribute("data-category")
-            : null;
-
-          if (filter === "all" || category === filter) {
-            project.style.display = "";
-            requestAnimationFrame(() => {
-              project.classList.remove("fade-out");
-              project.classList.add("fade-in");
-            });
-          } else {
-            project.classList.remove("fade-in");
-            project.classList.add("fade-out");
-            setTimeout(() => {
-              project.style.display = "none";
-            }, 300);
-          }
-        });
+      button.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        applyFilter(filter, button);
       });
     });
   </script>
 </Mainlayout>
 
 <style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px; /* space between items */
+  }
+
   .grid-container > * {
+    opacity: 1;
+    transform: scale(1);
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
@@ -166,6 +180,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
   .fade-in {
     opacity: 1;
     transform: scale(1);
+    display: block !important;
   }
 
   #cloud3 {
@@ -217,10 +232,10 @@ import ProjectGallery from "../components/ProjectGallery.astro";
 
   .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 20px;
-    margin: 0 auto;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px; /* space between items */
     max-width: 1700px;
+    margin: 0 auto;
   }
 
   .grid-item {
@@ -581,10 +596,10 @@ import ProjectGallery from "../components/ProjectGallery.astro";
       opacity: 1;
       transition: none;
     }
-     .menu-item.active {
-    background-color: #3290ca;
-    color: white;
-  }
+    .menu-item.active {
+      background-color: #3290ca;
+      color: white;
+    }
 
     .overlay {
       position: absolute;

@@ -40,61 +40,71 @@ import "../styles/global.css";
 
     <footer>
       <img id="image" width="100%" src="/treefooter.png" alt="" />
-      <img id="mobile-image" src="/Images/mobile-footer.png" alt="">
+      <img id="mobile-image" src="/Images/mobile-footer.png" alt="" />
     </footer>
 
-     <script>
-if (window.innerWidth > 768) { // only for screens wider than 768px
-  const cursor = document.getElementById("custom-cursor");
-  let rotation = 0;
-  let lastScroll = window.scrollY;
+    <script>
+      if (window.innerWidth > 768) {
+        const cursor = document.getElementById("custom-cursor");
+        let rotation = 0;
+        let lastScroll = window.scrollY;
 
-  // Follow mouse
-  document.addEventListener("mousemove", (e) => {
-    const target = e.target;
+        // Read current zoom from <html>. Falls back to 1 if not set/supported.
+        const getZoom = () => {
+          const z = parseFloat(getComputedStyle(document.documentElement).zoom);
+          return Number.isFinite(z) && z > 0 ? z : 1;
+        };
+        let zoom = getZoom();
+        window.addEventListener("resize", () => (zoom = getZoom()));
 
-    // Hide PNG cursor & show native hand on buttons/links
-    if (target.tagName === "BUTTON" || target.tagName === "A") {
-      cursor.style.display = "none";
-    } else {
-      cursor.style.display = "block";
-      cursor.style.top = e.clientY + "px";
-      cursor.style.left = e.clientX + "px";
-    }
-  });
+        // Follow mouse (adjusting for zoom)
+        document.addEventListener("mousemove", (e) => {
+          const target = e.target;
 
-  // Rotate PNG cursor on scroll
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > lastScroll) {
-      rotation += 10;
-    } else {
-      rotation -= 10;
-    }
-    lastScroll = window.scrollY;
+          if (target.tagName === "BUTTON" || target.tagName === "A") {
+            cursor.style.display = "none";
+            return;
+          }
+          cursor.style.display = "block";
 
-    cursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-  });
-}
+          // position corrected for CSS zoom
+          const x = e.clientX / zoom;
+          const y = e.clientY / zoom;
 
-  </script>
+          // Use transform for positioning + rotation in one place
+          cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rotation}deg)`;
+        });
+
+        // Rotate PNG cursor on scroll
+        window.addEventListener("scroll", () => {
+          rotation += window.scrollY > lastScroll ? 10 : -10;
+          lastScroll = window.scrollY;
+
+          // keep the last translate (position) and just update rotation:
+          // read current translate from the style and swap in new rotation
+          const t = cursor.style.transform || "";
+          cursor.style.transform =
+            t.replace(/rotate\([^)]*\)/, "") + ` rotate(${rotation}deg)`;
+        });
+      }
+    </script>
   </body>
 </html>
 
 <style>
-
-*{
-  margin: 0;
-}
+  * {
+    margin: 0;
+  }
 
   * {
-      cursor: none !important;
-    }
+    cursor: none !important;
+  }
 
-    /* Show native hand on buttons and links */
-    button,
-    a {
-      cursor: pointer !important;
-    }
+  /* Show native hand on buttons and links */
+  button,
+  a {
+    cursor: pointer !important;
+  }
 
   body {
     cursor: none; /* hide default cursor */
@@ -113,8 +123,6 @@ if (window.innerWidth > 768) { // only for screens wider than 768px
     transition: transform 0.05s linear;
     z-index: 9999;
   }
-
-
 
   #gradient {
     height: 1000px;
@@ -136,7 +144,7 @@ if (window.innerWidth > 768) { // only for screens wider than 768px
     position: fixed;
     width: 100%;
     z-index: 1000;
-    width: 90%;
+    width: 85%;
     max-width: 1800px;
     background: white;
     border-radius: 70px;
@@ -172,61 +180,64 @@ if (window.innerWidth > 768) { // only for screens wider than 768px
 
   footer {
     margin-top: 100px;
-
   }
 
   #mobile-image {
     display: none;
   }
 
-@media (max-width: 600px) {
-   .nav-list li a {
-    color: #3498db;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-  }
+  @media (max-width: 600px) {
+    .nav-list li a {
+      color: #3498db;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
 
-  .nav-list{
-    padding: 5px 10px;
-  }
-  .nav-left,
-  .nav-right {
-    display: flex;
-    font-family: "Recoleta", Georgia, serif;
-    gap: 10px;
-    padding: 0px 2px;
-  }
- .logo img {
-    height: 35px;
-    padding: 0px;
-    margin-bottom: -5px;
-  }
+    .nav-list {
+      padding: 5px 10px;
+    }
+    .nav-left,
+    .nav-right {
+      display: flex;
+      font-family: "Recoleta", Georgia, serif;
+      gap: 10px;
+      padding: 0px 2px;
+    }
+    .logo img {
+      height: 35px;
+      padding: 0px;
+      margin-bottom: -5px;
+    }
     .nav-bar {
-    padding: 10px 10px;
-    display: flex;
-    justify-content: center;
-
-  }
+      padding: 10px 10px;
+      display: flex;
+      justify-content: center;
+    }
     #custom-cursor {
-    display: none;
-  }
+      display: none;
+    }
 
     body {
-    cursor: auto;
+      cursor: auto;
+    }
+    #image {
+      display: none;
+    }
+    #mobile-image {
+      width: 100%;
+      display: block;
+      padding: 0;
+    }
+
   }
-  #image {
-    display: none;
-  }
-#mobile-image{
- width: 100%;
- display: block;
- padding: 0;
+/* Desktop only */
+@media (min-width: 769px) {
+  html { zoom: 0.7; }      /* applies on desktop/tablet+ */
 }
 
+/* Mobile: reset zoom */
+@media (max-width: 768px) {
+  html { zoom: 1; }        /* no zoom on mobile */
 }
-
-
-
-
 </style>
