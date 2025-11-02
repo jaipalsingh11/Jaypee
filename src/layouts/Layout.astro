@@ -7,9 +7,9 @@ import "../styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Jaypee's Portfolio</title>
+    <link rel="icon" type="image/png" href="/cursor2.png" />
   </head>
 
   <body>
@@ -39,8 +39,8 @@ import "../styles/global.css";
     <slot />
 
     <footer>
-      <img id="image" width="100%" src="/treefooter.png" alt="" />
-      <img id="mobile-image" src="/Images/mobile-footer.png" alt="" />
+      <img id="image" width="100%" src="/footer-desktop.png" alt="" />
+      <img id="mobile-image" src="/Images/footer-mobile.png" alt="" />
     </footer>
 
     <script>
@@ -229,15 +229,18 @@ import "../styles/global.css";
       display: block;
       padding: 0;
     }
-
   }
-/* Desktop only */
-@media (min-width: 769px) {
-  html { zoom: 0.7; }      /* applies on desktop/tablet+ */
-}
+  /* Desktop only */
+  @media (min-width: 769px) {
+    html {
+      zoom: 0.7;
+    } /* applies on desktop/tablet+ */
+  }
 
-/* Mobile: reset zoom */
-@media (max-width: 768px) {
-  html { zoom: 1; }        /* no zoom on mobile */
-}
+  /* Mobile: reset zoom */
+  @media (max-width: 768px) {
+    html {
+      zoom: 1;
+    } /* no zoom on mobile */
+  }
 </style>
