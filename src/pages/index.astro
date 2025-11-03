@@ -520,6 +520,33 @@ import ProjectGallery from "../components/ProjectGallery.astro";
       padding: 0 20px;
     }
 
+    .menu-container {
+  overflow-x: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #3290ca #f0f8ff; /* thumb + track */
+}
+
+/* Chrome, Safari, Edge */
+.menu-container::-webkit-scrollbar {
+  height: 6px; /* thickness of scrollbar */
+}
+
+.menu-container::-webkit-scrollbar-track {
+  background: #f0f8ff; /* track background */
+  border-radius: 10px;
+}
+
+.menu-container::-webkit-scrollbar-thumb {
+  background-color: #3290ca; /* thumb color */
+  border-radius: 10px;
+  border: 1px solid #f0f8ff; /* smooth edges */
+}
+
+/* Optional hover effect */
+.menu-container::-webkit-scrollbar-thumb:hover {
+  background-color: #1f6fa4;
+}
+
     #cloud1 {
       position: absolute;
       top: 150px;
@@ -568,7 +595,7 @@ import ProjectGallery from "../components/ProjectGallery.astro";
       z-index: 10;
     }
 
-    /* Hide scrollbar but still allow scrolling */
+    Hide scrollbar but still allow scrolling
     .menu-container::-webkit-scrollbar {
       height: 6px;
     }

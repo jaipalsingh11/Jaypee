@@ -265,5 +265,22 @@ const embed = toEmbed(videoUrl);
       text-align: center;
       margin-top: 20px;
     }
+html,
+body {
+  height: 100%;
+}
+
+main, /* just in case Mainlayout wraps content in <main> */
+#main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#bigcontainer {
+  flex-grow: 1; /* takes remaining space so footer stays at bottom */
+}
+
+
   }
 </style>
