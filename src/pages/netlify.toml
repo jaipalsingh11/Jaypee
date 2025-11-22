@@ -1,0 +1,5 @@
+[[plugins]]
+package = "@netlify/plugin-lighthouse"
+
+[[plugins]]
+package = "netlify-plugin-image-optim"
